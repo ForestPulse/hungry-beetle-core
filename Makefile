@@ -74,7 +74,7 @@ disturbance_detection: temp utils $(DMAIN)/disturbance_detection.c
 ### MISC
 
 install_:
-	cp -a $(MISC)/* $(DBIN)
+	cp -a $(DMISC)/* $(DBIN)
 	chmod 0755 $(DBIN)/*
 	cp -a $(DBIN)/. $(DINSTALL)
 
