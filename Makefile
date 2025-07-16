@@ -34,6 +34,7 @@ DUTILS=src/utils
 DTMP=src/temp
 DMOD=src/temp/modules
 DBIN=src/temp/bin
+DMISC=src/misc
 DINSTALL=$(HOME)/bin
 
 ### TARGETS
@@ -73,6 +74,7 @@ disturbance_detection: temp utils $(DMAIN)/disturbance_detection.c
 ### MISC
 
 install_:
+	cp -a $(MISC)/* $(DBIN)
 	chmod 0755 $(DBIN)/*
 	cp -a $(DBIN)/. $(DINSTALL)
 

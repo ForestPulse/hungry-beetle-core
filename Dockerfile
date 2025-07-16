@@ -1,4 +1,4 @@
-FROM davidfrantz/base:latest as builder
+FROM davidfrantz/base:latest AS builder
 
 # disable interactive frontends
 ENV DEBIAN_FRONTEND=noninteractive 
@@ -17,7 +17,7 @@ RUN echo "building hungry-beetle" && \
   make && \
   make install
 
-FROM davidfrantz/hungry-beetle:latest as hungry-beetle
+FROM ghcr.io/forestpulse/hungry-beetle-core:latest AS final
 
 COPY --chown=docker:docker --from=builder $HOME/bin $HOME/bin
 
