@@ -16,10 +16,12 @@ RUN apt-get -y update && apt-get -y upgrade && \
 apt-get -y install \
   build-essential \
   r-base && \
-Rscript -e 'install.packages("rmarkdown", repos="https://cloud.r-project.org")' && \
-Rscript -e 'install.packages("plotly",    repos="https://cloud.r-project.org")' && \
-Rscript -e 'install.packages("dplyr",     repos="https://cloud.r-project.org")' && \
-Rscript -e 'install.packages("terra",     repos="https://cloud.r-project.org")' 
+Rscript -e "install.packages('pak', repos='https://r-lib.github.io/p/pak/dev/')" && \
+Rscript -e "pak::pkg_install(c('rmarkdown','plotly', 'dplyr', 'terra'))"
+#Rscript -e 'install.packages("rmarkdown", repos="https://cloud.r-project.org")' && \
+#Rscript -e 'install.packages("plotly",    repos="https://cloud.r-project.org")' && \
+#Rscript -e 'install.packages("dplyr",     repos="https://cloud.r-project.org")' && \
+#Rscript -e 'install.packages("terra",     repos="https://cloud.r-project.org")' 
 
 
 # Clear installation data
