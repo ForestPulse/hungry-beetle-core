@@ -13,7 +13,7 @@ if (length(args) != n_args) {
   c(
     "\nWrong input!\n",
     " 1: file_input\n",
-    " 2: file_output\n",
+    " 2: file_output\n"
   ) %>%
   stop()
 }

@@ -27,17 +27,14 @@ chmod 0777 /home/docker && \
 chgrp docker /usr/local/bin && \
 mkdir -p /home/docker/bin && chown docker /home/docker/bin
 
-#RUN echo "building hungry-beetle" && \
 # Build, install
-#  make && \
-#  make DINSTALL=$INSTALL_DIR install 
+RUN echo "building hungry-beetle" && \
+  make && \
+  make DINSTALL=$INSTALL_DIR install 
 
+FROM ghcr.io/forestpulse/hungry-beetle-core:latest AS final
 
-
-#FROM ghcr.io/forestpulse/hungry-beetle-core:latest AS final
-
-#COPY --chown=docker:docker --from=builder $INSTALL_DIR $HOME/bin
-#COPY --chown=docker:docker $INSTALL_DIR $HOME/bin
+COPY --chown=docker:docker --from=builder $INSTALL_DIR $HOME/bin
 
 RUN rm -rf $SOURCE_DIR $INSTALL_DIR
 
@@ -46,4 +43,4 @@ USER docker
 ENV HOME=/home/docker
 ENV PATH="$PATH:/home/docker/bin"
 WORKDIR /home/docker
-#CMD ["disturbance_detection"]
+CMD ["disturbance_detection"]
