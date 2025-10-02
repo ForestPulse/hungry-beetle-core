@@ -378,7 +378,7 @@ int number, candidate;
            residuals[d][j] > args.threshold_min) ||
           (args.direction < 0 && 
            residuals[d][j] < (-1 * args.threshold_std * stats[j]) &&
-           residuals[d][j] < args.threshold_min)
+           residuals[d][j] < (-1 * args.threshold_min))
         ){
           number++;
           if (number == 1) candidate = d;
