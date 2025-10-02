@@ -24,13 +24,14 @@ typedef struct {
   float threshold_std;
   float threshold_min;
   int direction;
+  int n_consecutive;
 } args_t;
 
 void usage(char *exe, int exit_code){
 
 
   printf("Usage: %s -j cpus -s path_stats -r path_residuals\n", exe);
-  printf("          -o file_output -c true|false -d threshold_std -m threshold_min -e direction\n");
+  printf("          -o file_output -c true|false -d threshold_std -m threshold_min -e direction -n number\n");
   printf("\n");
   printf("  -s = path to statistics\n");
   printf("  -r = path to residuals\n");
@@ -42,6 +43,7 @@ void usage(char *exe, int exit_code){
   printf("  -e = direction of testing the threshold\n");
   printf("       +1 for 'greater than' test\n");
   printf("       -1 for 'less than' test\n");
+  printf("   -n = number of consecutive observations to detect disturbance event\n");
   printf("\n");
 
   exit(exit_code);
@@ -53,7 +55,7 @@ int opt, received_n = 0, expected_n = 7;
 
   opterr = 0;
 
-  while ((opt = getopt(argc, argv, "s:r:o:d:m:e:c:")) != -1){
+  while ((opt = getopt(argc, argv, "s:r:o:d:m:e:c:n:")) != -1){
     switch(opt){
       case 's':
         copy_string(args->path_stats, STRLEN, optarg);
@@ -96,6 +98,14 @@ int opt, received_n = 0, expected_n = 7;
         break;
       case 'e':
         args->direction = atoi(optarg);
+        received_n++;
+        break;
+      case 'n':
+        args->n_consecutive = atoi(optarg);
+        if (args->n_consecutive < 1){
+          fprintf(stderr, "n_consecutive must be >= 1\n");
+          usage(argv[0], FAILURE);
+        }
         received_n++;
         break;
       case '?':
@@ -372,7 +382,7 @@ int number, candidate;
         ){
           number++;
           if (number == 1) candidate = d;
-          if (number == 3){
+          if (number == args.n_consecutive){
              confirmed = true;
              break;
           }
