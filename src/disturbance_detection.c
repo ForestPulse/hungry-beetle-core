@@ -51,7 +51,7 @@ void usage(char *exe, int exit_code){
 }
 
 void parse_args(int argc, char *argv[], args_t *args){
-int opt, received_n = 0, expected_n = 7;
+int opt, received_n = 0, expected_n = 8;
 
   opterr = 0;
 
